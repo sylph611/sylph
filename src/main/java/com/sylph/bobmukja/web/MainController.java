@@ -1,4 +1,4 @@
-package com.sylph.bobmukja.temp.controller;
+package com.sylph.bobmukja.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,4 +11,5 @@ public class MainController {
     public String mainpage(Model model) {
         return "index";
     }
+
 }

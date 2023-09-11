@@ -1,5 +1,7 @@
 package com.sylph.bobmukja.global.config;
 
+import com.sylph.bobmukja.global.config.oauth2.OAuth2AuthorizationRequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -10,7 +12,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final OAuth2AuthorizationRequestRepository oAuth2AuthorizationRequestRepository;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception  {
         httpSecurity
@@ -22,7 +27,10 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 // OAuth2 로그인 서비스 구현
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(auth -> auth
+                                .authorizationRequestRepository(oAuth2AuthorizationRequestRepository))
+                )
         ;
 
         return httpSecurity.build();
