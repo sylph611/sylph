@@ -1,10 +1,10 @@
 package com.sylph.bobmukja.global.config;
 
-import com.sylph.bobmukja.global.config.oauth2.OAuth2AuthorizationRequestRepository;
+import com.sylph.bobmukja.global.config.oauth2.CustomOAuth2AuthorizationRequestRepository;
+import com.sylph.bobmukja.global.config.oauth2.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,7 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final OAuth2AuthorizationRequestRepository oAuth2AuthorizationRequestRepository;
+    private final CustomOAuth2AuthorizationRequestRepository customOAuth2AuthorizationRequestRepository;
+    private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception  {
         httpSecurity
@@ -29,7 +30,10 @@ public class SecurityConfig {
                 // OAuth2 로그인 서비스 구현
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(auth -> auth
-                                .authorizationRequestRepository(oAuth2AuthorizationRequestRepository))
+                                .authorizationRequestRepository(customOAuth2AuthorizationRequestRepository))
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
                 )
         ;
 

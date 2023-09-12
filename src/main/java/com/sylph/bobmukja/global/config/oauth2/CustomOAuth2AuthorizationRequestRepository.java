@@ -10,10 +10,10 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.stereotype.Component;
 
 @Component
-public class OAuth2AuthorizationRequestRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
+public class CustomOAuth2AuthorizationRequestRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
     public static final String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
     public static final String REDIRECT_URL_PARAM_COOKIE_NAME = "redirect_url";
-    private static final int cookieExpireSeconds = 180;
+    private static final int COOKIE_EXPIRE_SECONDS = 180;
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
         return CookieUtils.resolveCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
@@ -28,10 +28,10 @@ public class OAuth2AuthorizationRequestRepository implements AuthorizationReques
             CookieUtils.deleteCookie(request, response, REDIRECT_URL_PARAM_COOKIE_NAME);
             return;
         }
-        CookieUtils.setCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtils.serialize(authorizationRequest), cookieExpireSeconds);
+        CookieUtils.setCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
         String redirectUrlAfterLogin = request.getParameter(REDIRECT_URL_PARAM_COOKIE_NAME);
         if (StringUtils.isNotBlank(redirectUrlAfterLogin)) {
-            CookieUtils.setCookie(response, REDIRECT_URL_PARAM_COOKIE_NAME, redirectUrlAfterLogin, cookieExpireSeconds);
+            CookieUtils.setCookie(response, REDIRECT_URL_PARAM_COOKIE_NAME, redirectUrlAfterLogin, COOKIE_EXPIRE_SECONDS);
         }
     }
 

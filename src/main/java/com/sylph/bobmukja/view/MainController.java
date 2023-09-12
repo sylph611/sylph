@@ -1,4 +1,4 @@
-package com.sylph.bobmukja.web;
+package com.sylph.bobmukja.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

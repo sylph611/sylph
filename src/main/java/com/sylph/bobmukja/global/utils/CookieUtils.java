@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,22 +17,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CookieUtils {
+
     /**
      * request 에 담겨 있는 쿠키를 꺼낸다.
      */
     public static Optional<Cookie> resolveCookie(HttpServletRequest request, String cookieName) {
 
         Cookie[] cookies = request.getCookies();
-
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(cookieName)) {
-                    return Optional.of(cookie);
-                }
-            }
-        }
-
-        return Optional.empty();
+        return Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(cookieName)).findFirst();
     }
 
 
@@ -41,16 +34,12 @@ public class CookieUtils {
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
 
         Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie: cookies) {
-                if (cookie.getName().equals(cookieName)) {
-                    cookie.setValue("");
-                    cookie.setPath("/");
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                    break;
-                }
-            }
+        Optional<Cookie> findCookie = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(cookieName)).findFirst();
+        if(findCookie.isPresent()) {
+            findCookie.get().setValue("");
+            findCookie.get().setPath("/");
+            findCookie.get().setMaxAge(0);
+            response.addCookie(findCookie.get());
         }
     }
 
