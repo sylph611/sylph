@@ -94,7 +94,7 @@ public class OAuth2Attribute {
         return user;
     }
 
-    Map<String, Object> convertToMap() {
+    public Map<String, Object> convertToMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("provider", provider);
         map.put("id", id);

@@ -2,6 +2,7 @@ package com.sylph.bobmukja.global.config;
 
 import com.sylph.bobmukja.global.config.oauth2.CustomOAuth2AuthorizationRequestRepository;
 import com.sylph.bobmukja.global.config.oauth2.CustomOAuth2UserService;
+import com.sylph.bobmukja.global.config.oauth2.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ public class SecurityConfig {
 
     private final CustomOAuth2AuthorizationRequestRepository customOAuth2AuthorizationRequestRepository;
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception  {
         httpSecurity
@@ -34,6 +36,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
                         )
+                        .successHandler(oAuth2AuthenticationSuccessHandler)
                 )
         ;
 
