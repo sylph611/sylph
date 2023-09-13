@@ -1,16 +1,53 @@
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS place;
+DROP TABLE IF EXISTS review;
+
 CREATE TABLE user
 (
     id           BIGINT AUTO_INCREMENT COMMENT 'PK'
         primary key,
-    provider     VARCHAR(30)  NOT NULL COMMENT '공급자(구글,네이버,카카오)',
-    user_id      VARCHAR(100) NOT NULL COMMENT '유저아이디',
-    name         VARCHAR(50)  NULL COMMENT '성명',
-    nickname     VARCHAR(50)  NULL COMMENT '닉네임',
-    email        VARCHAR(100) NULL COMMENT '이메일',
-    role         VARCHAR(50)  NOT NULL COMMENT '권한',
-    created_date timestamp default CURRENT_TIMESTAMP NOT NULL COMMENT '생성일시',
-    created_by   bigint                              NOT NULL COMMENT '생성자',
-    updated_date timestamp default CURRENT_TIMESTAMP NOT NULL COMMENT '수정일시',
-    updated_by   bigint                              NOT NULL COMMENT '수정자'
-);
+    provider     VARCHAR(30)                         NOT NULL COMMENT '공급자(구글,네이버,카카오)',
+    user_id      VARCHAR(100)                        NOT NULL COMMENT '유저아이디',
+    name         VARCHAR(50)                         NULL COMMENT '성명',
+    nickname     VARCHAR(50)                         NULL COMMENT '닉네임',
+    email        VARCHAR(100)                        NULL COMMENT '이메일',
+    role         VARCHAR(50)                         NOT NULL COMMENT '권한',
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성일시',
+    created_by   BIGINT                              NOT NULL COMMENT '생성자',
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정일시',
+    updated_by   BIGINT                              NOT NULL COMMENT '수정자'
+) COMMENT = '사용자';
+
+CREATE TABLE place
+(
+    id           BIGINT AUTO_INCREMENT COMMENT 'PK'
+        primary  key,
+    name                VARCHAR(100) NOT NULL COMMENT '식당명',
+    address             VARCHAR(200) NULL COMMENT '주소',
+    place_category      VARCHAR(100) NULL COMMENT '장소 대분류(음식점, 바, 카페 등)' ,
+    place_sub_category  VARCHAR(100) NULL COMMENT '장소 소분류(중국집, 일식집, 디저트카페, 다이닝펍 등)',
+    region              VARCHAR(100) NULL COMMENT '지역 대분류(서울,경기,부산)',
+    sub_region          VARCHAR(100) NULL COMMENT '지역 소분류(홍대, 강남 등)',
+    business_hours      VARCHAR(100) NULL COMMENT '영업시간 (11:00 ~ 12:00)',
+    phone_number        VARCHAR(100) NULL COMMENT '전화번호',
+    latitude            VARCHAR(100) NULL COMMENT '위도',
+    longitude           VARCHAR(100) NULL COMMENT '경도',
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성일시',
+    created_by   BIGINT                              NOT NULL COMMENT '생성자',
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정일시',
+    updated_by   BIGINT                              NOT NULL COMMENT '수정자'
+) COMMENT = '플레이스';
+
+CREATE TABLE review
+(
+    id           BIGINT AUTO_INCREMENT COMMENT 'PK'
+        primary  key,
+    place_id     BIGINT NOT NULL COMMENT '장소',
+    score        TINYINT NOT NULL COMMENT '점수',
+    title        VARCHAR(300)  NOT NULL COMMENT '리뷰제목',
+    content      VARCHAR(2000) NOT NULL COMMENT '리뷰내용',
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성일시',
+    created_by   BIGINT                              NOT NULL COMMENT '생성자',
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정일시',
+    updated_by   BIGINT                              NOT NULL COMMENT '수정자'
+) COMMENT = '리뷰';
