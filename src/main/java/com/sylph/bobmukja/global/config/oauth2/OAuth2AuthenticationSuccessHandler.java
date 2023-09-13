@@ -58,8 +58,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("accessToken", jwtTokenProvider.createAccessToken(authentication))
-//                .queryParam("refreshToken", jwtTokenProvider.createRefreshToken(authentication))
-//                .queryParam("expires_in", jwtTokenProvider.getExpiration())
+                .queryParam("refreshToken", jwtTokenProvider.createRefreshToken(authentication))
+                .queryParam("expires_in", jwtTokenProvider.getExpiration())
                 .build().toUriString();
     }
 

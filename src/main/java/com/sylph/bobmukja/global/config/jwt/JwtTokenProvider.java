@@ -55,42 +55,18 @@ public class JwtTokenProvider {
 
     public CustomAuthenticationToken decode(String token) {
         Claims claims = this.parseClaims(token);
-        String username = claims.getSubject();
+
         String provider = claims.get(PROVIDER, String.class);
+        String userId = claims.get(USER_ID, String.class);
+        Long id = claims.get(ID, Long.class);
         String email = claims.get(EMAIL, String.class);
-        Long userId = claims.get(USER_ID, Long.class);
         List<? extends GrantedAuthority> grantedAuthorities =
                 (List<SimpleGrantedAuthority>) claims.get(AUTHORITY, List.class).stream()
                         .map(authority-> new SimpleGrantedAuthority((String) authority))
                         .collect(Collectors.toList());
-
-        return null;
+        return new CustomAuthenticationToken(grantedAuthorities, id, userId, email, provider);
     }
 
-//    public TokenDto reissueAccessTokenUsing(String refreshToken) throws JwtException {
-//        Claims claims = this.parseClaims(refreshToken);
-//        return this.createAccessTokenOnly(claims);
-//    }
-//
-//    private TokenDto createAccessTokenOnly(Claims claims) {
-//        Date now = new Date();
-//
-//        String accessToken = Jwts.builder()
-//                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-//                .setClaims(claims)
-//                .setIssuedAt(now)
-//                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALID_MILLISECOND))
-//                .signWith(SECRET_KEY)
-//                .compact();
-//
-//        return TokenDto.builder()
-//                .grantType("Bearer")
-//                .accessToken(accessToken)
-//                .refreshToken("")
-//                .accessTokenExpireDate(ACCESS_TOKEN_VALID_MILLISECOND)
-//                .build();
-//    }
-//
 //    /* 토큰 body 에 넣어둔 사용자 정보를 가져옴
 //     * validation 검사를 먼저 꼭 해야함! */
     private Claims parseClaims(String token) throws JwtException {
@@ -130,4 +106,30 @@ public class JwtTokenProvider {
                 .signWith(SECRET_KEY)
                 .compact();
     }
+
+
+//    public TokenDto reissueAccessTokenUsing(String refreshToken) throws JwtException {
+//        Claims claims = this.parseClaims(refreshToken);
+//        return this.createAccessTokenOnly(claims);
+//    }
+//
+//    private TokenDto createAccessTokenOnly(Claims claims) {
+//        Date now = new Date();
+//
+//        String accessToken = Jwts.builder()
+//                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+//                .setClaims(claims)
+//                .setIssuedAt(now)
+//                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALID_MILLISECOND))
+//                .signWith(SECRET_KEY)
+//                .compact();
+//
+//        return TokenDto.builder()
+//                .grantType("Bearer")
+//                .accessToken(accessToken)
+//                .refreshToken("")
+//                .accessTokenExpireDate(ACCESS_TOKEN_VALID_MILLISECOND)
+//                .build();
+//    }
+//
 }
