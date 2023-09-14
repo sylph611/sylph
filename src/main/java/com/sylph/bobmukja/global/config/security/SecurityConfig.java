@@ -1,4 +1,4 @@
-package com.sylph.bobmukja.global.config;
+package com.sylph.bobmukja.global.config.security;
 
 import com.sylph.bobmukja.global.config.jwt.JwtAuthFilter;
 import com.sylph.bobmukja.global.config.jwt.JwtExceptionFilter;
