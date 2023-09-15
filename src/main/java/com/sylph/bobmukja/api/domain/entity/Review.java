@@ -3,6 +3,7 @@ package com.sylph.bobmukja.api.domain.entity;
 import com.sylph.bobmukja.global.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -42,4 +43,23 @@ public class Review extends BaseEntity {
     @Comment("리뷰 내용")
     private String content;
 
+    @Column()
+    @Comment("삭제여부")
+    private boolean deleted;
+
+    @Builder
+    public Review(Long id, Long placeId, Integer score, LocalDate visitDate, String title, String content, boolean deleted) {
+        this.id = id;
+        this.placeId = placeId;
+        this.score = score;
+        this.visitDate = visitDate;
+        this.title = title;
+        this.content = content;
+        this.deleted = deleted;
+    }
+
+    public Review deleted() {
+        this.deleted = true;
+        return this;
+    }
 }

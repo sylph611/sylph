@@ -4,12 +4,9 @@ import com.sylph.bobmukja.api.domain.entity.Place;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.util.ObjectUtils;
-
-import java.util.List;
 
 @Data
-public class PlaceResponse {
+public class PlaceRequest {
 
     @Schema(description = "PLACE ID")
     private Long id;
@@ -48,7 +45,7 @@ public class PlaceResponse {
     private Boolean deleted;
 
     @Builder
-    private PlaceResponse(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude, Boolean deleted) {
+    private PlaceRequest(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude, boolean deleted) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -63,27 +60,21 @@ public class PlaceResponse {
         this.deleted = deleted;
     }
 
-    public static PlaceResponse of(Place place) {
-        if(ObjectUtils.isEmpty(place)) return PlaceResponse.builder().build();
-        return PlaceResponse.builder()
-                .id(place.getId())
-                .name(place.getName())
-                .address(place.getAddress())
-                .placeCategory(place.getPlaceCategory())
-                .placeSubCategory(place.getPlaceSubCategory())
-                .region(place.getRegion())
-                .subRegion(place.getSubRegion())
-                .businessHours(place.getBusinessHours())
-                .phoneNumber(place.getPhoneNumber())
-                .latitude(place.getLatitude())
-                .longitude(place.getLongitude())
-                .deleted(place.isDeleted())
+    public Place toEntity() {
+        return Place.builder()
+                .id(this.id)
+                .name(this.name)
+                .address(this.address)
+                .placeCategory(this.placeCategory)
+                .placeSubCategory(this.placeSubCategory)
+                .region(this.region)
+                .subRegion(this.subRegion)
+                .businessHours(this.businessHours)
+                .phoneNumber(this.phoneNumber)
+                .latitude(this.latitude)
+                .longitude(this.longitude)
+                .deleted(this.deleted)
                 .build();
     }
 
-    public static List<PlaceResponse> ofList(List<Place> placeList) {
-        return placeList.stream()
-                .map(PlaceResponse::of)
-                .toList();
-    }
 }

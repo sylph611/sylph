@@ -8,9 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
-import java.sql.Timestamp;
-import java.util.Objects;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -61,8 +58,12 @@ public class Place extends BaseEntity {
     @Comment("경도")
     private String longitude;
 
+    @Column()
+    @Comment("삭제여부")
+    private boolean deleted;
+
     @Builder
-    private Place(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude) {
+    private Place(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude, Boolean deleted) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -74,5 +75,11 @@ public class Place extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.deleted = deleted;
+    }
+
+    public Place deleted() {
+        this.deleted = true;
+        return this;
     }
 }
