@@ -50,20 +50,20 @@ public class Place extends BaseEntity {
     @Comment("전화번호")
     private String phoneNumber;
 
-    @Column(length = 100)
+    @Column()
     @Comment("위도")
-    private String latitude;
+    private Double latitude;
 
-    @Column(length = 100)
+    @Column()
     @Comment("경도")
-    private String longitude;
+    private Double longitude;
 
     @Column()
     @Comment("삭제여부")
     private boolean deleted;
 
     @Builder
-    private Place(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude, Boolean deleted) {
+    private Place(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, Double latitude, Double longitude, Boolean deleted) {
         this.id = id;
         this.name = name;
         this.address = address;
