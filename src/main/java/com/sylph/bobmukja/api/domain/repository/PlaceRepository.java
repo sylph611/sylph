@@ -1,6 +1,8 @@
 package com.sylph.bobmukja.api.domain.repository;
 
 import com.sylph.bobmukja.api.domain.entity.Place;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,8 +12,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     Optional<Place> findByIdAndDeletedIsFalse(Long id);
 
-
-    List<Place> findPlacesByLatitudeBetweenAndLongitudeBetween(String latitude, String latitude2, String longitude, String longitude2);
+    Page<Place> findPlacesByLatitudeBetweenAndLongitudeBetween(Double bottomLat, Double topLat, Double leftLng, Double rightLng, Pageable pageable);
 
     /*
     @Query(value = "select sum(p.progress_count) as progressCount , p.badge_id as badgeId" +

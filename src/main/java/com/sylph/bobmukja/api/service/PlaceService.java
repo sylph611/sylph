@@ -5,7 +5,12 @@ import com.sylph.bobmukja.api.domain.repository.PlaceRepository;
 import com.sylph.bobmukja.api.web.dto.LatLng;
 import com.sylph.bobmukja.api.web.dto.MapRequest;
 import com.sylph.bobmukja.api.web.dto.PlaceRequest;
+import com.sylph.bobmukja.api.web.dto.PlaceResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,18 +32,21 @@ public class PlaceService {
     }
 
     // 좌표 기준 장소 조회
-    public String search(MapRequest mapRequest) {
+    public Page<Place> search(MapRequest mapRequest, int page) {
         LatLng center = mapRequest.getCenter();
         LatLng topRight = mapRequest.getTopRight();
         LatLng bottomLeft = mapRequest.getBottomLeft();
 
-        if(topRight.isEmpty() || bottomLeft.isEmpty()) {
 
+        Page<Place> response = null;
+        if(topRight.isEmpty() || bottomLeft.isEmpty()) {
         } else {
+            response = placeRepository.findPlacesByLatitudeBetweenAndLongitudeBetween(bottomLeft.getLatitude(),topRight.getLatitude(),
+                    bottomLeft.getLongitude(), topRight.getLongitude(), PageRequest.of(page, 30));
 
         }
 
-        return "";
+        return response;
     }
 
     // 장소 다건 저장
