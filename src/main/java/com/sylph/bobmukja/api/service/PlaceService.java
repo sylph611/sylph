@@ -32,21 +32,20 @@ public class PlaceService {
     }
 
     // 좌표 기준 장소 조회
-    public Page<Place> search(MapRequest mapRequest, int page) {
-        LatLng center = mapRequest.getCenter();
-        LatLng topRight = mapRequest.getTopRight();
-        LatLng bottomLeft = mapRequest.getBottomLeft();
+    public Page<PlaceResponse> search(MapRequest mapRequest, int page) {
+        //LatLng center = mapRequest.toCenterLatLng();
+        LatLng topRight = mapRequest.toTopRightLatLng();
+        LatLng bottomLeft = mapRequest.toBottomLeftLatLng();
 
 
-        Page<Place> response = null;
-        if(topRight.isEmpty() || bottomLeft.isEmpty()) {
-        } else {
-            response = placeRepository.findPlacesByLatitudeBetweenAndLongitudeBetween(bottomLeft.getLatitude(),topRight.getLatitude(),
-                    bottomLeft.getLongitude(), topRight.getLongitude(), PageRequest.of(page, 30));
-
+        Page<Place> placeList = null;
+        if(!topRight.isEmpty() && !bottomLeft.isEmpty()) {
+            placeRepository.findByIdAndDeletedIsFalse(30L);
+            placeList = placeRepository.findPlacesByLatitudeBetweenAndLongitudeBetween(bottomLeft.getLatitude(),topRight.getLatitude(),
+                    bottomLeft.getLongitude(), topRight.getLongitude(), PageRequest.of(page,30));
         }
 
-        return response;
+        return PlaceResponse.of(placeList);
     }
 
     // 장소 다건 저장

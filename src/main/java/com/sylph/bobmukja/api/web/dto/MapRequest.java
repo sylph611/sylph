@@ -7,14 +7,43 @@ import lombok.Data;
 @Data
 public class MapRequest {
 
-    @NotNull
-    @Schema(description = "중심 좌표")
-    LatLng center;
+    @Schema(description = "중심 좌표 위도")
+    private Double centerLatitude;
 
-    @Schema(description = "우상단 좌표")
-    LatLng topRight;
+    @Schema(description = "중심 좌표 경도")
+    private Double centerLongitude;
 
-    @Schema(description = "좌하단 좌표")
-    LatLng bottomLeft;
+    @Schema(description = "우상단 좌표 위도")
+    private Double topRightLatitude;
+
+    @Schema(description = "우상단 좌표 경도")
+    private Double topRightLongitude;
+
+    @Schema(description = "좌하단 좌표 위도")
+    private Double bottomLeftLatitude;
+
+    @Schema(description = "좌하단 좌표 경도")
+    private Double bottomLeftLongitude;
+
+    public LatLng toCenterLatLng() {
+        return LatLng.builder()
+                .latitude(centerLatitude)
+                .longitude(centerLongitude)
+                .build();
+    }
+
+    public LatLng toTopRightLatLng() {
+        return LatLng.builder()
+                .latitude(topRightLatitude)
+                .longitude(topRightLongitude)
+                .build();
+    }
+
+    public LatLng toBottomLeftLatLng() {
+        return LatLng.builder()
+                .latitude(bottomLeftLatitude)
+                .longitude(bottomLeftLongitude)
+                .build();
+    }
 
 }

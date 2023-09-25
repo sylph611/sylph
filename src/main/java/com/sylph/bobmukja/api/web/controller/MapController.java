@@ -3,6 +3,7 @@ package com.sylph.bobmukja.api.web.controller;
 import com.sylph.bobmukja.api.domain.entity.Place;
 import com.sylph.bobmukja.api.service.PlaceService;
 import com.sylph.bobmukja.api.web.dto.MapRequest;
+import com.sylph.bobmukja.api.web.dto.PlaceResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ public class MapController {
 
     @Operation(description  = "맵 조회")
     @GetMapping("/search")
-    public ResponseEntity<Page<Place>> get(@RequestBody @Valid MapRequest mapRequest, int page) {
+    public ResponseEntity<Page<PlaceResponse>> get(@Valid MapRequest mapRequest, int page) {
         return ResponseEntity.of(
                 Optional.of(
                         placeService.search(mapRequest, page)

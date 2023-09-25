@@ -4,8 +4,12 @@ import com.sylph.bobmukja.api.domain.entity.Place;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -39,16 +43,16 @@ public class PlaceResponse {
     private String phoneNumber;
 
     @Schema(description = "위도")
-    private String latitude;
+    private Double latitude;
 
     @Schema(description = "경도")
-    private String longitude;
+    private Double longitude;
 
     @Schema(description = "삭제여부")
     private Boolean deleted;
 
     @Builder
-    private PlaceResponse(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude, Boolean deleted) {
+    private PlaceResponse(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, Double latitude, Double longitude, Boolean deleted) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -82,8 +86,14 @@ public class PlaceResponse {
     }
 
     public static List<PlaceResponse> ofList(List<Place> placeList) {
+        if(ObjectUtils.isEmpty(placeList)) return new ArrayList<>();
         return placeList.stream()
                 .map(PlaceResponse::of)
                 .toList();
+    }
+
+    public static Page<PlaceResponse> of(Page<Place> placeList) {
+        if(ObjectUtils.isEmpty(placeList)) return new PageImpl<>(PlaceResponse.ofList(null), Pageable.ofSize(1), 0);
+        return placeList.map(PlaceResponse::of);
     }
 }

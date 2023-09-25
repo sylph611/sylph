@@ -36,16 +36,16 @@ public class PlaceRequest {
     private String phoneNumber;
 
     @Schema(description = "위도")
-    private String latitude;
+    private Double latitude;
 
     @Schema(description = "경도")
-    private String longitude;
+    private Double longitude;
 
     @Schema(description = "삭제여부")
     private Boolean deleted;
 
     @Builder
-    private PlaceRequest(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, String latitude, String longitude, boolean deleted) {
+    private PlaceRequest(Long id, String name, String address, String placeCategory, String placeSubCategory, String region, String subRegion, String businessHours, String phoneNumber, Double latitude, Double longitude, boolean deleted) {
         this.id = id;
         this.name = name;
         this.address = address;
