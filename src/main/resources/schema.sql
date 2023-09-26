@@ -54,3 +54,42 @@ CREATE TABLE review
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정 일시',
     updated_by   BIGINT                              NOT NULL COMMENT '수정자'
 ) COMMENT = '리뷰';
+
+CREATE TABLE place_category
+(
+    id           BIGINT AUTO_INCREMENT COMMENT 'PK'
+        primary  key,
+    type        VARCHAR(10)  NOT NULL COMMENT '타입(MAIN, SUB)',
+    code        VARCHAR(50)  NOT NULL COMMENT '코드',
+    value       VARCHAR(50)  NOT NULL COMMENT '값',
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성 일시',
+    created_by   BIGINT                              NOT NULL COMMENT '생성자',
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정 일시',
+    updated_by   BIGINT                              NOT NULL COMMENT '수정자'
+) COMMENT = '장소 카테고리';
+
+CREATE TABLE place_region
+(
+    id           BIGINT AUTO_INCREMENT COMMENT 'PK'
+        primary  key,
+    type        VARCHAR(10)  NOT NULL COMMENT '타입(MAIN, SUB)',
+    code        VARCHAR(50)  NOT NULL COMMENT '코드',
+    value       VARCHAR(50)  NOT NULL COMMENT '값',
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성 일시',
+    created_by   BIGINT                              NOT NULL COMMENT '생성자',
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정 일시',
+    updated_by   BIGINT                              NOT NULL COMMENT '수정자'
+) COMMENT = '지역';
+
+CREATE TABLE common_code
+(
+    id           BIGINT AUTO_INCREMENT COMMENT 'PK'
+        primary  key,
+    type        VARCHAR(10)  NOT NULL COMMENT '타입(REGION, SUBREGION)',
+    code        VARCHAR(50)  NOT NULL COMMENT '코드',
+    value       VARCHAR(50)  NOT NULL COMMENT '값',
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성 일시',
+    created_by   BIGINT                              NOT NULL COMMENT '생성자',
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '수정 일시',
+    updated_by   BIGINT                              NOT NULL COMMENT '수정자'
+) COMMENT = '공통 코드';
