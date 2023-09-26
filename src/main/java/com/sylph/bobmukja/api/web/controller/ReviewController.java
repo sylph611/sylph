@@ -3,9 +3,11 @@ package com.sylph.bobmukja.api.web.controller;
 import com.sylph.bobmukja.api.service.ReviewService;
 import com.sylph.bobmukja.api.web.dto.ReviewRequest;
 import com.sylph.bobmukja.api.web.dto.ReviewResponse;
+import com.sylph.bobmukja.api.web.dto.ReviewSearchRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,23 +15,24 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/reviews")
+@RequestMapping("/api/{placeId}/reviews")
 @RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
     @Operation(description  = "리뷰 리스트 조회")
     @GetMapping("")
-    public ResponseEntity<List<ReviewResponse>> getList(@Schema(description = "Place ID", example = "1")
-                                                            @PathVariable Long id) {
-        return ResponseEntity.of(Optional.of(ReviewResponse.ofList(reviewService.getList(id))));
+    public ResponseEntity<Page<ReviewResponse>> search(@Schema(description = "Place ID", example = "1") @PathVariable Long placeId,
+                                                        ReviewSearchRequest reviewSearchRequest,
+                                                        int page) {
+        return ResponseEntity.of(Optional.of(ReviewResponse.of(reviewService.search(placeId, reviewSearchRequest, page))));
     }
 
     @Operation(description  = "리뷰 단건 조회")
-    @GetMapping("{id}")
+    @GetMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> get(@Schema(description = "Place ID", example = "1")
-                                             @PathVariable Long id) {
-        return ResponseEntity.of(Optional.of(ReviewResponse.of(reviewService.get(id))));
+                                             @PathVariable Long reviewId) {
+        return ResponseEntity.of(Optional.of(ReviewResponse.of(reviewService.get(reviewId))));
     }
 
     @Operation(description  = "장소 저장(다건)")

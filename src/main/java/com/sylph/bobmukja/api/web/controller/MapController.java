@@ -26,9 +26,19 @@ public class MapController {
 
     private final PlaceService placeService;
 
-    @Operation(description  = "맵 조회")
+    @Operation(description  = "현재 지도내 조회[사각형범위]")
+    @GetMapping("/search/inner")
+    public ResponseEntity<Page<PlaceResponse>> searchInCurrentMap(@Valid MapRequest mapRequest, int page) {
+        return ResponseEntity.of(
+                Optional.of(
+                        placeService.searchInCurrentMap(mapRequest, page)
+                )
+        );
+    }
+
+    @Operation(description  = "현재 위치기준 조회[중심좌표기준 반경거리]")
     @GetMapping("/search")
-    public ResponseEntity<Page<PlaceResponse>> get(@Valid MapRequest mapRequest, int page) {
+    public ResponseEntity<Page<PlaceResponse>> search(@Valid MapRequest mapRequest, int page) {
         return ResponseEntity.of(
                 Optional.of(
                         placeService.search(mapRequest, page)

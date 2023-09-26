@@ -47,8 +47,12 @@ public class Review extends BaseEntity {
     @Comment("삭제여부")
     private boolean deleted;
 
+    @ManyToOne
+    @JoinColumn(name = "createdBy",insertable=false, updatable=false)
+    private User writer;
+
     @Builder
-    public Review(Long id, Long placeId, Integer score, LocalDate visitDate, String title, String content, boolean deleted) {
+    public Review(Long id, Long placeId, Integer score, LocalDate visitDate, String title, String content, boolean deleted, User writer) {
         this.id = id;
         this.placeId = placeId;
         this.score = score;
@@ -56,6 +60,7 @@ public class Review extends BaseEntity {
         this.title = title;
         this.content = content;
         this.deleted = deleted;
+        this.writer = writer;
     }
 
     public Review deleted() {

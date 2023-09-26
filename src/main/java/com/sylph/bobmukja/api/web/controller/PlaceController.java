@@ -3,10 +3,12 @@ package com.sylph.bobmukja.api.web.controller;
 import com.sylph.bobmukja.api.service.PlaceService;
 import com.sylph.bobmukja.api.web.dto.PlaceRequest;
 import com.sylph.bobmukja.api.web.dto.PlaceResponse;
+import com.sylph.bobmukja.api.web.dto.PlaceSearchRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,8 @@ public class PlaceController {
 
     @Operation(description  = "장소 리스트 조회")
     @GetMapping("")
-    public ResponseEntity<List<PlaceResponse>> get() {
-        return ResponseEntity.of(Optional.of(PlaceResponse.ofList(placeService.getList())));
+    public ResponseEntity<Page<PlaceResponse>> get(PlaceSearchRequest placeSearchRequest, int page) {
+        return ResponseEntity.of(Optional.of(PlaceResponse.of(placeService.getList(placeSearchRequest, page))));
     }
 
     @Operation(description  = "장소 단건 조회")

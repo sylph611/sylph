@@ -6,6 +6,9 @@ import com.sylph.bobmukja.api.domain.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
@@ -63,10 +66,15 @@ public class ReviewResponse {
                 .visitDate(review.getVisitDate())
                 .title(review.getTitle())
                 .content(review.getContent())
-                //.writerId(user.getId().toString())
-                //.writerName(user.getName())
-                //.writerNickName(user.getNickname())
+                .writerId(review.getWriter().getId().toString())
+                .writerName(review.getWriter().getName())
+                .writerNickName(review.getWriter().getNickname())
                 .build();
+    }
+
+    public static Page<ReviewResponse> of(Page<Review> reviewList) {
+        if(ObjectUtils.isEmpty(reviewList)) return new PageImpl<>(ReviewResponse.ofList(null), Pageable.ofSize(1), 0);
+        return reviewList.map(ReviewResponse::of);
     }
 
     public static List<ReviewResponse> ofList(List<Review> reviewList) {
