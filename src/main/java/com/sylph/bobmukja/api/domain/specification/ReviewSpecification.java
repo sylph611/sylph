@@ -1,6 +1,5 @@
 package com.sylph.bobmukja.api.domain.specification;
 
-import com.sylph.bobmukja.api.domain.entity.Place;
 import com.sylph.bobmukja.api.domain.entity.Review;
 import com.sylph.bobmukja.api.web.dto.ReviewSearchRequest;
 import org.apache.commons.lang3.ObjectUtils;
@@ -35,14 +34,29 @@ public class ReviewSpecification {
         return (root, query, CriteriaBuilder) -> CriteriaBuilder.greaterThanOrEqualTo(root.get("score"), score);
     }
 
+    /**
+     * NotDeleted
+     * @return
+     */
     public static Specification<Review> notDeleted() {
         return (root, query, CriteriaBuilder) -> CriteriaBuilder.isFalse(root.get("deleted"));
     }
 
-    public static Specification<Review> search(ReviewSearchRequest reviewSearchRequest) {
-        Specification<Review> spec = (root, query, criteriaBuilder) -> null;
-        spec = spec.and(ReviewSpecification.notDeleted());
+    /**
+     * 장소 ID 조회
+     * @param placeId
+     * @return
+     */
+    public static Specification<Review> eqaulPlaceId(Long placeId) {
+        return (root, query, CriteriaBuilder) -> CriteriaBuilder.equal(root.get("placeId"),placeId);
+    }
 
+    public static Specification<Review> search(Long placeId, ReviewSearchRequest reviewSearchRequest) {
+        Specification<Review> spec = (root, query, criteriaBuilder) -> null;
+        if(ObjectUtils.isEmpty(reviewSearchRequest)) reviewSearchRequest = new ReviewSearchRequest();
+
+        spec = spec.and(ReviewSpecification.notDeleted());
+        spec = spec.and(ReviewSpecification.eqaulPlaceId(placeId));
         // 제목
         if(ObjectUtils.isNotEmpty(reviewSearchRequest.getTitle())) {
             spec = spec.and(ReviewSpecification.likeTitle(reviewSearchRequest.getTitle()));

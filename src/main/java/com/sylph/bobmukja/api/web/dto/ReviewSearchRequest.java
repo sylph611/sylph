@@ -11,13 +11,13 @@ import java.time.LocalDate;
 @Data
 public class ReviewSearchRequest {
 
-    @Schema(description = "점수")
+    @Schema(description = "점수", defaultValue = "0")
     private Integer score;
 
-    @Schema(description = "리뷰 제목")
+    @Schema(description = "리뷰 제목", defaultValue = "리뷰")
     private String title;
 
-    @Schema(description = "장소 내용")
+    @Schema(description = "장소 내용", defaultValue = "내용")
     private String content;
 
     @Builder
@@ -27,4 +27,9 @@ public class ReviewSearchRequest {
         this.content = content;
     }
 
+    public ReviewSearchRequest() {
+        this.score = 0;
+        this.title = "";
+        this.content = "";
+    }
 }

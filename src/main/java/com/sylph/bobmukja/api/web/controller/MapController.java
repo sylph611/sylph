@@ -21,7 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/map")
 @RequiredArgsConstructor
-@Tag(name = "지도 API", description = "지도 API")
+@Tag(name = "3. 지도 검색 API", description = "3. 지도 검색 API")
 public class MapController {
 
     private final PlaceService placeService;

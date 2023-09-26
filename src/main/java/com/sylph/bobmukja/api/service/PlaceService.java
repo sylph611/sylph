@@ -5,10 +5,8 @@ import com.sylph.bobmukja.api.domain.repository.PlaceRepository;
 import com.sylph.bobmukja.api.domain.specification.PlaceSpecification;
 import com.sylph.bobmukja.api.web.dto.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

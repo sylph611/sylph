@@ -21,8 +21,8 @@ public class ReviewService {
         return reviewRepository.findById(id).orElse(null);
     }
 
-    public Page<Review> search(Long id, ReviewSearchRequest reviewSearchRequest, int page) {
-        return reviewRepository.findAllByPlaceId(id, ReviewSpecification.search(reviewSearchRequest), PageRequest.of(page,10));
+    public Page<Review> search(Long placeId, ReviewSearchRequest reviewSearchRequest, int page) {
+        return reviewRepository.findAll(ReviewSpecification.search(placeId, reviewSearchRequest), PageRequest.of(page,10));
     }
 
     public boolean save(List<ReviewRequest> reviewRequestList) {
