@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface PlaceRegionRepository extends JpaRepository<PlaceRegion, Long>, JpaSpecificationExecutor<PlaceRegion> {
 
+    List<PlaceRegion> findAllByType(String type);
     List<PlaceRegion> findAll(Specification<PlaceRegion> spec);
 
 }

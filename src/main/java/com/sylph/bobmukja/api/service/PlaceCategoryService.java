@@ -23,7 +23,6 @@ public class PlaceCategoryService {
      * @return
      */
     public PlaceCategoryAllResponse getAllPlaceCategories() {
-
         List<PlaceCategory> mainCategories = placeCategoryRepository.findAllByType(PlaceType.MAIN.getCode());
         List<PlaceCategory> subCategories = placeCategoryRepository.findAllByType(PlaceType.SUB.getCode());
 
@@ -32,6 +31,7 @@ public class PlaceCategoryService {
 
     /**
      * 특정 카테고리 조회
+     * @param placeType
      * @param upperCode
      * @return
      */
@@ -39,5 +39,4 @@ public class PlaceCategoryService {
         List<PlaceCategory> placeCategories = placeCategoryRepository.findAll(PlaceCategorySpecification.findAll(placeType, upperCode));
         return PlaceCategoryResponse.of(Category.ofList(placeCategories));
     }
-
 }
