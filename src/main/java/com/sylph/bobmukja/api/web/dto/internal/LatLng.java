@@ -1,4 +1,4 @@
-package com.sylph.bobmukja.api.web.dto;
+package com.sylph.bobmukja.api.web.dto.internal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

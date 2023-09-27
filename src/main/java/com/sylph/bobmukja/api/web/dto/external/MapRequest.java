@@ -1,7 +1,7 @@
-package com.sylph.bobmukja.api.web.dto;
+package com.sylph.bobmukja.api.web.dto.external;
 
+import com.sylph.bobmukja.api.web.dto.internal.LatLng;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data

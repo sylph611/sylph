@@ -60,6 +60,7 @@ CREATE TABLE place_category
     id           BIGINT AUTO_INCREMENT COMMENT 'PK'
         primary  key,
     type        VARCHAR(10)  NOT NULL COMMENT '타입(MAIN, SUB)',
+    upper_code  VARCHAR(50)  NOT NULL COMMENT '상위 코드',
     code        VARCHAR(50)  NOT NULL COMMENT '코드',
     value       VARCHAR(50)  NOT NULL COMMENT '값',
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성 일시',
@@ -73,6 +74,7 @@ CREATE TABLE place_region
     id           BIGINT AUTO_INCREMENT COMMENT 'PK'
         primary  key,
     type        VARCHAR(10)  NOT NULL COMMENT '타입(MAIN, SUB)',
+    upper_code  VARCHAR(50)  NOT NULL COMMENT '상위 코드',
     code        VARCHAR(50)  NOT NULL COMMENT '코드',
     value       VARCHAR(50)  NOT NULL COMMENT '값',
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성 일시',

@@ -1,9 +1,9 @@
 package com.sylph.bobmukja.api.web.controller;
 
 import com.sylph.bobmukja.api.service.PlaceService;
-import com.sylph.bobmukja.api.web.dto.PlaceRequest;
-import com.sylph.bobmukja.api.web.dto.PlaceResponse;
-import com.sylph.bobmukja.api.web.dto.PlaceSearchRequest;
+import com.sylph.bobmukja.api.web.dto.external.PlaceRequest;
+import com.sylph.bobmukja.api.web.dto.external.PlaceResponse;
+import com.sylph.bobmukja.api.web.dto.external.PlaceSearchRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

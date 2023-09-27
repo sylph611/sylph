@@ -1,9 +1,9 @@
 package com.sylph.bobmukja.api.web.controller;
 
 import com.sylph.bobmukja.api.service.ReviewService;
-import com.sylph.bobmukja.api.web.dto.ReviewRequest;
-import com.sylph.bobmukja.api.web.dto.ReviewResponse;
-import com.sylph.bobmukja.api.web.dto.ReviewSearchRequest;
+import com.sylph.bobmukja.api.web.dto.external.ReviewRequest;
+import com.sylph.bobmukja.api.web.dto.external.ReviewResponse;
+import com.sylph.bobmukja.api.web.dto.external.ReviewSearchRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

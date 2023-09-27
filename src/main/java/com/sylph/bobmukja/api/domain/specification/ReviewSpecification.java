@@ -1,7 +1,7 @@
 package com.sylph.bobmukja.api.domain.specification;
 
 import com.sylph.bobmukja.api.domain.entity.Review;
-import com.sylph.bobmukja.api.web.dto.ReviewSearchRequest;
+import com.sylph.bobmukja.api.web.dto.external.ReviewSearchRequest;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.domain.Specification;
 

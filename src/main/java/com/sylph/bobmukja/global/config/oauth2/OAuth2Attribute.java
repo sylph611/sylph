@@ -4,6 +4,7 @@ import com.sylph.bobmukja.api.domain.entity.User;
 import com.sylph.bobmukja.global.base.Role;
 import lombok.Builder;
 import lombok.Getter;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,6 +88,7 @@ public class OAuth2Attribute {
                 .userId(this.id)
                 .name(this.name)
                 .email(this.email)
+                .nickname(RandomStringUtils.random(10,true,true))
                 .role(Role.USER)
                 .build();
         user.setCreatedBy(SYSTEM_USER_ID);

@@ -1,4 +1,4 @@
-package com.sylph.bobmukja.api.web.dto;
+package com.sylph.bobmukja.api.web.dto.external;
 
 import com.sylph.bobmukja.api.domain.entity.Place;
 import io.swagger.v3.oas.annotations.media.Schema;

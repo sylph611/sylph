@@ -1,8 +1,7 @@
 package com.sylph.bobmukja.api.domain.specification;
 
 import com.sylph.bobmukja.api.domain.entity.Place;
-import com.sylph.bobmukja.api.web.dto.PlaceSearchRequest;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import com.sylph.bobmukja.api.web.dto.external.PlaceSearchRequest;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.domain.Specification;
 
