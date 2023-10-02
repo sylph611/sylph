@@ -20,8 +20,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @Operation(description  = "유저 프로필")
-    @GetMapping("/profile")
+    @Operation(description  = "내정보")
+    @GetMapping("/me")
     public ResponseEntity<UserResponse> getUserInfo() {
         return ResponseEntity.of(
                 Optional.of(
