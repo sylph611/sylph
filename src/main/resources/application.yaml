@@ -19,3 +19,4 @@ spring:
       connection-test-query: SELECT 1
       minimum-idle: 10
       maximum-pool-size: 50
+
